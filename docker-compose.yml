@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - '1433:1433'
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Seb12345
+    volumes:
+      - D:/Workspace/Volumes/mssql/data:/var/opt/mssql/data
+      - D:/Workspace/Volumes/mssql/log:/var/opt/mssql/log
+      - D:/Workspace/Volumes/mssql/secrets:/var/opt/mssql/secrets
