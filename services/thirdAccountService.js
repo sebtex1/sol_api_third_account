@@ -7,3 +7,7 @@ exports.findAll = () => {
 exports.create = (thirdAccount) => {
     return thirdAccountDao.create(thirdAccount);
 }
+
+exports.delete = (id) => {
+    return thirdAccountDao.delete(id);
+}

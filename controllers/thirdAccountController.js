@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const thirdAccountService = require('../services/thirdAccountService');
 
+// Fonction permettant de gérer le timeout de la requête
 const requestTimeout = (res) => {
     res.setTimeout(5000, () => {
         const errorMessage = 'La requête a expiré après 5 secondes.';
@@ -9,14 +10,20 @@ const requestTimeout = (res) => {
     });
 };
 
+// Route permettant de récupérer tous les comptes tiers
 const getAllThirdAccounts = async (req, res) => {
     requestTimeout(res);
 
     const thirdsAccount = await thirdAccountService.findAll();
+    if (thirdsAccount === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
     res.status(200).send(thirdsAccount);
 };
 router.get('/', getAllThirdAccounts);
 
+// Route permettant de créer un compte tiers
 const createThirdAccount = async (req, res) => {
     requestTimeout(res);
 
@@ -25,10 +32,24 @@ const createThirdAccount = async (req, res) => {
     if (newThirdAccount === null) { 
         res.status(500).send('Erreur lors de la création.');
         return;
-     }
+    }
     res.status(201).send({ message: 'Création réussie' , id: newThirdAccount.ta_id });
 };
 router.post('/', createThirdAccount);
+
+// Route permettant de supprimer un compte tiers
+const deleteThirdAccount = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const result = await thirdAccountService.delete(id);
+    if (result === false) {
+        res.status(500).send('Erreur lors de la suppression.');
+        return;
+    }
+    res.status(200).send({ message: 'Suppression réussie' });
+};
+router.delete('/:id', deleteThirdAccount);
 
 module.exports = router;
   
