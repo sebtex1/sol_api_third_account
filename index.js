@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000; // Choisissez un port de votre choix
+const port = 3000;
 const sequelize = require('./config/database');
 
 app.use(express.json());
@@ -11,13 +11,11 @@ app.listen(port, () => {
     }
 );
 
-// Importer les routes
+// Importation des routes
 const thirdAccountController = require('./controllers/thirdAccountController');
-
-// Utiliser les routes
 app.use('/thirdAccounts', thirdAccountController);
 
-// Vérifiez la connexion à la base de données
+// Vérifie la connexion à la base de données
 sequelize
     .authenticate()
     .then(() => {

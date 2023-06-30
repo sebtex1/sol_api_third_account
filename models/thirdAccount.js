@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Importez l'instance Sequelize créée précédemment
+const sequelize = require('../config/database'); // Importe l'instance Sequelize créée précédemment
 
-
-// Override timezone formatting for MSSQL
+// Surchage du formatage du fuseau horaire pour MSSQL
 Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
   return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
 };

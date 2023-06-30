@@ -37,6 +37,21 @@ const createThirdAccount = async (req, res) => {
 };
 router.post('/', createThirdAccount);
 
+// Route permettant de modifier un compte tiers
+const updateThirdAccount = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const thirdAccount = req.body;
+    const result = await thirdAccountService.update(id, thirdAccount);
+    if (result === false) {
+        res.status(500).send('Erreur lors de la modification.');
+        return;
+    }
+    res.status(200).send({ message: 'Modification réussie' });
+};
+router.put('/:id', updateThirdAccount);
+
 // Route permettant de supprimer un compte tiers
 const deleteThirdAccount = async (req, res) => {
     requestTimeout(res);
