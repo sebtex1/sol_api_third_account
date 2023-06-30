@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ThirdAccount = require('../models/thirdAccount');
+const thirdAccountService = require('../services/thirdAccountService');
 
 const getAllThirdsAccount = async (req, res) => {
     res.setTimeout(5000, () => {
@@ -8,10 +8,8 @@ const getAllThirdsAccount = async (req, res) => {
         res.status(500).send(errorMessage);
     });
 
-    const thirdsAccount = await ThirdAccount.findAll();
-
-    console.log(thirdsAccount.every(thirdAccount => thirdAccount instanceof ThirdAccount)); // true
-    console.log("All third accounts:", JSON.stringify(thirdsAccount, null, 2));
+    const thirdsAccount = await thirdAccountService.findAll();
+    res.status(200).send(thirdsAccount);
 };
 
 router.get('/', getAllThirdsAccount);

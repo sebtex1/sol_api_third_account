@@ -8,6 +8,10 @@ const ThirdAccount = sequelize.define('ta_third_account',
             primaryKey: true,
             autoIncrement: true,
         },
+        ta_create_time: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
         ta_update_time: {
             type: DataTypes.DATE,
             allowNull: false,
@@ -72,7 +76,9 @@ const ThirdAccount = sequelize.define('ta_third_account',
     {
     // https://sequelize.org/docs/v6/core-concepts/paranoid/
     paranoid: true,
-    deletedAt: 'delete_time',
+    createdAt: 'ta_create_time',
+    updatedAt: 'ta_update_time',
+    deletedAt: 'ta_delete_time',
     hooks: {
         beforeUpdate: (thirdAccount) => {
             thirdAccount.ta_update_time = new Date();
