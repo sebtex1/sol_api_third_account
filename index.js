@@ -3,6 +3,9 @@ const app = express();
 const port = 3000; // Choisissez un port de votre choix
 const sequelize = require('./config/database');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.listen(port, () => {
         console.log(`Le serveur est démarré sur le port ${port}`);
     }

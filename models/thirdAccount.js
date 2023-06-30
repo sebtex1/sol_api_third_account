@@ -1,5 +1,12 @@
+const Sequelize = require('sequelize');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); // Importez l'instance Sequelize créée précédemment
+
+
+// Override timezone formatting for MSSQL
+Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
+  return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
+};
 
 const ThirdAccount = sequelize.define('ta_third_account', 
     {
@@ -19,6 +26,7 @@ const ThirdAccount = sequelize.define('ta_third_account',
         ta_delete_time: {
             type: DataTypes.DATE,
             allowNull: true,
+            defaultValue: null,
         },
         ta_name: {
             type: DataTypes.STRING,
@@ -31,46 +39,57 @@ const ThirdAccount = sequelize.define('ta_third_account',
         ta_address: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_complement: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_zip: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_city: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_country: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_siret: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_vat: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_naf_code: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_website: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_phone: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
         ta_email: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: null,
         },
     },
     {
