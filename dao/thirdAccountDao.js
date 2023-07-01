@@ -11,6 +11,17 @@ exports.findAll = async () => {
     }
 };
 
+// Fonction permettant de récupérer un compte tiers par son id
+exports.findById = async (id) => {
+    try {
+        const thirdAccount = await ThirdAccount.findByPk(id);
+        return thirdAccount;
+    } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+        return null;
+    }
+}
+
 // Fonction permettant de créer un compte tiers
 exports.create = async (thirdAccount) => {
     try {

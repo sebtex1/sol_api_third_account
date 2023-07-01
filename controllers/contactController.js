@@ -23,6 +23,20 @@ const getAllContacts = async (req, res) => {
 }
 router.get('/', getAllContacts);
 
+// Route permettant de récupérer un contact par son id
+const getContactById = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const contact = await contactService.findById(id);
+    if (contact === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
+    res.status(200).send(contact);
+}
+router.get('/:id', getContactById);
+
 // Route permettant de créer un contact
 const createContact = async (req, res) => {
     requestTimeout(res);

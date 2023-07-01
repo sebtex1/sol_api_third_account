@@ -11,6 +11,17 @@ exports.findAll = async () => {
     }
 }
 
+// Fonction permettant de récupérer une adresse de livraison par son id
+exports.findById = async (id) => {
+    try {
+        const shippingAddress = await ShippingAddress.findByPk(id);
+        return shippingAddress;
+    } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+        return null;
+    }
+}
+
 // Fonction permettant de créer une adresse de livraison
 exports.create = async (shippingAddress) => {
     try {

@@ -23,6 +23,20 @@ const getAllShippingAddresses = async (req, res) => {
 }
 router.get('/', getAllShippingAddresses);
 
+// Route permettant de récupérer une adresse de livraison par son id
+const getShippingAddressById = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const shippingAddress = await shippingAddressService.findById(id);
+    if (shippingAddress === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
+    res.status(200).send(shippingAddress);
+}
+router.get('/:id', getShippingAddressById);
+
 // Route permettant de créer une adresse de livraison
 const createShippingAddress = async (req, res) => {
     requestTimeout(res);

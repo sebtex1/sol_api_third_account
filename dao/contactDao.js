@@ -11,6 +11,17 @@ exports.findAll = async () => {
     }
 }
 
+// Fonction permettant de récupérer un contact par son id
+exports.findById = async (id) => {
+    try {
+        const contact = await Contact.findByPk(id);
+        return contact;
+    } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+        return null;
+    }
+}
+
 // Fonction permettant de créer un contact
 exports.create = async (contact) => {
     try {

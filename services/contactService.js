@@ -5,6 +5,11 @@ exports.findAll = () => {
     return contactDao.findAll();
 }
 
+// Fonction permettant de récupérer un contact par son id
+exports.findById = (id) => {
+    return contactDao.findById(id);
+}
+
 // Fonction permettant de créer un contact
 exports.create = (contact) => {
     return contactDao.create(contact);

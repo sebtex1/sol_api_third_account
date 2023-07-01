@@ -23,6 +23,20 @@ const getAllThirdAccounts = async (req, res) => {
 };
 router.get('/', getAllThirdAccounts);
 
+// Route permettant de récupérer un compte tiers par son id
+const getThirdAccountById = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const thirdAccount = await thirdAccountService.findById(id);
+    if (thirdAccount === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
+    res.status(200).send(thirdAccount);
+};
+router.get('/:id', getThirdAccountById);
+
 // Route permettant de créer un compte tiers
 const createThirdAccount = async (req, res) => {
     requestTimeout(res);

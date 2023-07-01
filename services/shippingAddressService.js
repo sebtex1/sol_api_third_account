@@ -5,6 +5,11 @@ exports.findAll = () => {
     return shippingAddressDao.findAll();
 }
 
+// Fonction permettant de récupérer une adresse de livraison par son id
+exports.findById = (id) => {
+    return shippingAddressDao.findById(id);
+}
+
 // Fonction permettant de créer une adresse de livraison
 exports.create = (shippingAddress) => {
     return shippingAddressDao.create(shippingAddress);

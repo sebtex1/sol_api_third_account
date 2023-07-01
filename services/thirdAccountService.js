@@ -5,6 +5,11 @@ exports.findAll = () => {
     return thirdAccountDao.findAll();
 };
 
+// Fonction permettant de récupérer un compte tiers par son id
+exports.findById = (id) => {
+    return thirdAccountDao.findById(id);
+}
+
 // Fonction permettant de créer un compte tiers
 exports.create = (thirdAccount) => {
     return thirdAccountDao.create(thirdAccount);
