@@ -17,8 +17,11 @@ app.listen(port, () => {
 const thirdAccountController = require('./controllers/thirdAccountController');
 app.use('/thirdAccounts', thirdAccountController);
 
-const serviceController = require('./controllers/serviceController');
-app.use('/contacts', serviceController);
+const contactController = require('./controllers/contactController');
+app.use('/contacts', contactController);
+
+const shippingAddressController = require('./controllers/shippingAddressController');
+app.use('/shippingAddresses', shippingAddressController);
 
 // Vérifie la connexion à la base de données
 sequelize

@@ -7,7 +7,7 @@ Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
     return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
 };
 
-const Contact = sequelize.define('ta_contact', 
+const ShippingAddress = sequelize.define('ta_shipping_addresse',
     {
         ta_id: {
             type: DataTypes.INTEGER,
@@ -18,25 +18,36 @@ const Contact = sequelize.define('ta_contact',
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        ta_first_name: {
+        ta_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        ta_last_name: {
+        ta_address: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        ta_job: {
+        ta_complement: {
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue: null,
+        },
+        ta_zip: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        ta_city: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        ta_region: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        ta_country: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         ta_phone: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: null,
-        },
-        ta_cell_phone: {
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue: null,
@@ -45,6 +56,11 @@ const Contact = sequelize.define('ta_contact',
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue: null,
+        },
+        ta_is_default: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true,
         },
         ta_create_time: {
             type: DataTypes.DATE,
@@ -58,7 +74,7 @@ const Contact = sequelize.define('ta_contact',
             type: DataTypes.DATE,
             allowNull: true,
             defaultValue: null,
-        },
+        }
     },
     {
         // https://sequelize.org/docs/v6/core-concepts/paranoid/
@@ -67,11 +83,11 @@ const Contact = sequelize.define('ta_contact',
         updatedAt: 'ta_update_time',
         deletedAt: 'ta_delete_time',
         hooks: {
-            beforeUpdate: (contact) => {
-                contact.ta_update_time = new Date();
+            beforeUpdate: (shippingAddress) => {
+                shippingAddress.ta_update_time = new Date();
             }
         }
     }
 );
 
-module.exports = Contact;
+module.exports = ShippingAddress;
