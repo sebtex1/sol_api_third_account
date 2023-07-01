@@ -92,16 +92,17 @@ const ThirdAccount = sequelize.define('ta_third_account',
         },
     },
     {
-    // https://sequelize.org/docs/v6/core-concepts/paranoid/
-    paranoid: true,
-    createdAt: 'ta_create_time',
-    updatedAt: 'ta_update_time',
-    deletedAt: 'ta_delete_time',
-    hooks: {
-        beforeUpdate: (thirdAccount) => {
-            thirdAccount.ta_update_time = new Date();
+        // https://sequelize.org/docs/v6/core-concepts/paranoid/
+        paranoid: true,
+        createdAt: 'ta_create_time',
+        updatedAt: 'ta_update_time',
+        deletedAt: 'ta_delete_time',
+        hooks: {
+            beforeUpdate: (thirdAccount) => {
+                thirdAccount.ta_update_time = new Date();
+            }
         }
     }
-});
+);
 
 module.exports = ThirdAccount;

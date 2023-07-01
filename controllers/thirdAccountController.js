@@ -66,5 +66,13 @@ const deleteThirdAccount = async (req, res) => {
 };
 router.delete('/:id', deleteThirdAccount);
 
+// Route retournant les options de la route /thirdAccount
+const getOptions = (req, res) => {
+    requestTimeout(res);
+
+    res.status(200).send({ message: 'Options récupérées', methodsAllowed: 'GET, POST, PUT, DELETE, OPTIONS', method: req.method });
+};
+router.options('/', getOptions);
+
 module.exports = router;
   
