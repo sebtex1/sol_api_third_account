@@ -37,6 +37,64 @@ const getThirdAccountById = async (req, res) => {
 };
 router.get('/:id', getThirdAccountById);
 
+// Route permettant de récupérer les shippingAddress d'un compte tiers par son id
+const getAllShippingAddressById = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const shippingAddress = await thirdAccountService.findAllShippingAddressById(id);
+    if (shippingAddress === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
+    res.status(200).send(shippingAddress);
+};
+router.get('/:id/shippingAddress', getAllShippingAddressById);
+
+// Route permettant de récupérer le shippingAddress d'un compte tiers par son id et son propre id
+const getShippingAddressById = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const shippingAddressId = req.params.shippingAddressId;
+    const shippingAddress = await thirdAccountService.findShippingAddressById(id, shippingAddressId);
+    if (shippingAddress === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
+    res.status(200).send(shippingAddress);
+};
+router.get('/:id/shippingAddress/:shippingAddressId', getShippingAddressById);
+
+// Route permettant de récupérer les contacts d'un compte tiers par son id
+const getAllContactById = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const contact = await thirdAccountService.findAllContactById(id);
+    if (contact === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
+    res.status(200).send(contact);
+};
+router.get('/:id/contact', getAllContactById);
+
+// Route permettant de récupérer le contact d'un compte tiers par son id et son propre id
+const getContactById = async (req, res) => {
+    requestTimeout(res);
+
+    const id = req.params.id;
+    const contactId = req.params.contactId;
+    const contact = await thirdAccountService.findContactById(id, contactId);
+    if (contact === null) {
+        res.status(500).send('Erreur lors de la récupération.');
+        return;
+    }
+    res.status(200).send(contact);
+};
+router.get('/:id/contact/:contactId', getContactById);
+
 // Route permettant de créer un compte tiers
 const createThirdAccount = async (req, res) => {
     requestTimeout(res);

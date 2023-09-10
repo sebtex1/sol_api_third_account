@@ -22,6 +22,28 @@ exports.findById = async (id) => {
     }
 }
 
+// Fonction permettant de récupérer toutes les adresses de livraison d'un compte tiers par son id
+exports.findAllByThirdAccountId = async (id) => {
+    try {
+        const shippingAddress = await ShippingAddress.findAll({ where: { ta_third_account_id: id } });
+        return shippingAddress;
+    } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+        return null;
+    }
+}
+
+// Fonction permettant de récupérer une adresse de livraison d'un compte tiers par son id et son propre id
+exports.findByThirdAccountId = async (id, shippingAddressId) => {
+    try {
+        const shippingAddress = await ShippingAddress.findOne({ where: { ta_third_account_id: id, ta_id: shippingAddressId } });
+        return shippingAddress;
+    } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+        return null;
+    }
+}
+
 // Fonction permettant de créer une adresse de livraison
 exports.create = async (shippingAddress) => {
     try {

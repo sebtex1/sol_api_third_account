@@ -22,6 +22,28 @@ exports.findById = async (id) => {
     }
 }
 
+// Fonction permettant de récupérer tous les contacts d'un compte tiers par son id
+exports.findAllByThirdAccountId = async (id) => {
+    try {
+        const contact = await Contact.findAll({ where: { ta_third_account_id: id } });
+        return contact;
+    } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+        return null;
+    }
+}
+
+// Fonction permettant de récupérer un contact d'un compte tiers par son id et son propre id
+exports.findByThirdAccountId = async (id, contactId) => {
+    try {
+        const contact = await Contact.findOne({ where: { ta_third_account_id: id, ta_id: contactId } });
+        return contact;
+    } catch (error) {
+        console.error("Erreur lors de la récupération :", error.message);
+        return null;
+    }
+}
+
 // Fonction permettant de créer un contact
 exports.create = async (contact) => {
     try {
