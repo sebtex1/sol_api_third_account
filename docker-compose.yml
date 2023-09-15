@@ -9,6 +9,6 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Seb12345
     volumes:
-      - D:/Workspace/Volumes/mssql/data:/var/opt/mssql/data
-      - D:/Workspace/Volumes/mssql/log:/var/opt/mssql/log
-      - D:/Workspace/Volumes/mssql/secrets:/var/opt/mssql/secrets
+      - C:/Workspace/Volumes/mssql/data:/var/opt/mssql/data
+      - C:/Workspace/Volumes/mssql/log:/var/opt/mssql/log
+      - C:/Workspace/Volumes/mssql/secrets:/var/opt/mssql/secrets

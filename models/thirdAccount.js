@@ -27,6 +27,10 @@ const ThirdAccount = sequelize.define('ta_third_account',
             allowNull: true,
             defaultValue: null,
         },
+        company_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         ta_name: {
             type: DataTypes.STRING,
             allowNull: false,

@@ -1,4 +1,5 @@
 const contactDao = require('../dao/contactDao');
+const thirdAccountDao = require('../dao/thirdAccountDao');
 
 // Fonction permettant de récupérer tous les contacts
 exports.findAll = () => {

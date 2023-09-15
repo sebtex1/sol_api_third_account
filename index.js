@@ -3,7 +3,7 @@ const express = require('express');
 const sequelize = require('./config/database');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,10 +18,10 @@ const thirdAccountController = require('./controllers/thirdAccountController');
 app.use('/thirdAccounts', thirdAccountController);
 
 const contactController = require('./controllers/contactController');
-app.use('/contacts', contactController);
+app.use('', contactController);
 
 const shippingAddressController = require('./controllers/shippingAddressController');
-app.use('/shippingAddresses', shippingAddressController);
+app.use('', shippingAddressController);
 
 // Vérifie la connexion à la base de données
 sequelize

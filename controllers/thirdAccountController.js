@@ -14,6 +14,7 @@ const requestTimeout = (res) => {
 const getAllThirdAccounts = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const thirdsAccount = await thirdAccountService.findAll();
     if (thirdsAccount === null) {
         res.status(500).send('Erreur lors de la récupération.');
@@ -27,6 +28,7 @@ router.get('/', getAllThirdAccounts);
 const getThirdAccountById = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const thirdAccount = await thirdAccountService.findById(id);
     if (thirdAccount === null) {
@@ -41,6 +43,7 @@ router.get('/:id', getThirdAccountById);
 const getAllShippingAddressById = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const shippingAddress = await thirdAccountService.findAllShippingAddressById(id);
     if (shippingAddress === null) {
@@ -55,6 +58,7 @@ router.get('/:id/shippingAddress', getAllShippingAddressById);
 const getShippingAddressById = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const shippingAddressId = req.params.shippingAddressId;
     const shippingAddress = await thirdAccountService.findShippingAddressById(id, shippingAddressId);
@@ -70,6 +74,7 @@ router.get('/:id/shippingAddress/:shippingAddressId', getShippingAddressById);
 const getAllContactById = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const contact = await thirdAccountService.findAllContactById(id);
     if (contact === null) {
@@ -84,6 +89,7 @@ router.get('/:id/contact', getAllContactById);
 const getContactById = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const contactId = req.params.contactId;
     const contact = await thirdAccountService.findContactById(id, contactId);
@@ -99,6 +105,7 @@ router.get('/:id/contact/:contactId', getContactById);
 const createThirdAccount = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const thirdAccount = req.body;
     const newThirdAccount = await thirdAccountService.create(thirdAccount);
     if (newThirdAccount === null) { 
@@ -113,6 +120,7 @@ router.post('/', createThirdAccount);
 const updateThirdAccount = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const thirdAccount = req.body;
     const result = await thirdAccountService.update(id, thirdAccount);
@@ -128,6 +136,7 @@ router.put('/:id', updateThirdAccount);
 const deleteThirdAccount = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const result = await thirdAccountService.delete(id);
     if (result === false) {
