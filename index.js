@@ -18,10 +18,10 @@ const thirdAccountController = require('./controllers/thirdAccountController');
 app.use('/thirdAccounts', thirdAccountController);
 
 const contactController = require('./controllers/contactController');
-app.use('/contacts', contactController);
+app.use('', contactController);
 
 const shippingAddressController = require('./controllers/shippingAddressController');
-app.use('/shippingAddresses', shippingAddressController);
+app.use('', shippingAddressController);
 
 // Vérifie la connexion à la base de données
 sequelize

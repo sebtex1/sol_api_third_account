@@ -18,6 +18,10 @@ const ShippingAddress = sequelize.define('ta_shipping_addresse',
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        company_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         ta_name: {
             type: DataTypes.STRING,
             allowNull: false,

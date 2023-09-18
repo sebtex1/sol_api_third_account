@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const shippingAddressService = require('../services/shippingAddressService');
+const thirdAccountService = require('../services/thirdAccountService');
 
 // Fonction permettant de gérer le timeout de la requête
 const requestTimeout = (res) => {
@@ -14,6 +15,7 @@ const requestTimeout = (res) => {
 const getAllShippingAddresses = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const shippingAddresses = await shippingAddressService.findAll();
     if (shippingAddresses === null) {
         res.status(500).send('Erreur lors de la récupération.');
@@ -21,12 +23,13 @@ const getAllShippingAddresses = async (req, res) => {
     }
     res.status(200).send(shippingAddresses);
 }
-router.get('/', getAllShippingAddresses);
+router.get('/shippingAddress', getAllShippingAddresses);
 
 // Route permettant de récupérer une adresse de livraison par son id
 const getShippingAddressById = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
     const id = req.params.id;
     const shippingAddress = await shippingAddressService.findById(id);
     if (shippingAddress === null) {
@@ -35,12 +38,19 @@ const getShippingAddressById = async (req, res) => {
     }
     res.status(200).send(shippingAddress);
 }
-router.get('/:id', getShippingAddressById);
+router.get('/shippingAddress/:id', getShippingAddressById);
 
 // Route permettant de créer une adresse de livraison
 const createShippingAddress = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
+    const idThirdAccount = req.params.idTA;
+    const thirdAccount = await thirdAccountService.findById(idThirdAccount)
+    if (thirdAccount === null) {
+        res.status(500).send('Erreur lors de la récupération du compte tiers.');
+        return;
+    }
     const shippingAddress = req.body;
     const newShippingAddress = await shippingAddressService.create(shippingAddress);
     if (newShippingAddress === null) {
@@ -49,12 +59,19 @@ const createShippingAddress = async (req, res) => {
     }
     res.status(201).send({ message: 'Création réussie', id: newShippingAddress.ta_id });
 }
-router.post('/', createShippingAddress);
+router.post('/thirdAccount/:idTA/shippingAddress', createShippingAddress);
 
 // Route permettant de modifier une adresse de livraison
 const updateShippingAddress = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
+    const idThirdAccount = req.params.idTA;
+    const thirdAccount = await thirdAccountService.findById(idThirdAccount)
+    if (thirdAccount === null) {
+        res.status(500).send('Erreur lors de la récupération du compte tiers.');
+        return;
+    }
     const id = req.params.id;
     const shippingAddress = req.body;
     const result = await shippingAddressService.update(id, shippingAddress);
@@ -64,12 +81,19 @@ const updateShippingAddress = async (req, res) => {
     }
     res.status(200).send({ message: 'Modification réussie' });
 }
-router.put('/:id', updateShippingAddress);
+router.put('/thirdAccount/:idTA/shippingAddress/:id', updateShippingAddress);
 
 // Route permettant de supprimer une adresse de livraison
 const deleteShippingAddress = async (req, res) => {
     requestTimeout(res);
 
+    const company_id = req.headers.company_id;
+    const idThirdAccount = req.params.idTA;
+    const thirdAccount = await thirdAccountService.findById(idThirdAccount)
+    if (thirdAccount === null) {
+        res.status(500).send('Erreur lors de la récupération du compte tiers.');
+        return;
+    }
     const id = req.params.id;
     const result = await shippingAddressService.delete(id);
     if (result === false) {
@@ -78,7 +102,7 @@ const deleteShippingAddress = async (req, res) => {
     }
     res.status(200).send({ message: 'Suppression réussie' });
 }
-router.delete('/:id', deleteShippingAddress);
+router.delete('/thirdAccount/:idTA/shippingAddress/:id', deleteShippingAddress);
 
 // Route retournant les options de la route /shippingAddresses
 const getOptions = (req, res) => {
@@ -86,6 +110,6 @@ const getOptions = (req, res) => {
 
     res.status(200).send({ message: 'Options récupérées', methodsAllowed: 'GET, POST, PUT, DELETE, OPTIONS', method: req.method });
 }
-router.options('/', getOptions);
+router.options('/shippingAddress', getOptions);
 
 module.exports = router;

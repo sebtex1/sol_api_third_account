@@ -18,6 +18,10 @@ const Contact = sequelize.define('ta_contact',
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        company_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         ta_first_name: {
             type: DataTypes.STRING,
             allowNull: false,
