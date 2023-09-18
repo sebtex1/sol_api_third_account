@@ -1,14 +1,39 @@
 version: '3.9'
 
+networks:
+    backend:
+    thirdAccounts:
+
 services:
-  sqlserver:
+  db-thirdAccounts:
+    container_name: mssql-solAccount
     image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
       - '1433:1433'
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Seb12345
+    networks:
+      - thirdAccounts
     volumes:
       - D:/Workspace/Volumes/mssql/data:/var/opt/mssql/data
       - D:/Workspace/Volumes/mssql/log:/var/opt/mssql/log
       - D:/Workspace/Volumes/mssql/secrets:/var/opt/mssql/secrets
+
+  api-thirdAccounts:
+    container_name: api-thirdAccounts
+    depends_on:
+        - db-thirdAccounts
+    # image: sol_api_products:latest
+    image: sebtex/sol_api_third_account:latest
+    ports:
+        - 3031:8081
+    environment:
+        DB_SERVER: db-thirdAccounts
+        DB_PORT: 1433
+        DB_USER: sa
+        DB_PASS: Seb12345
+        DB_DATABASE: third_account
+    networks:
+        - thirdAccounts
+        - backend
